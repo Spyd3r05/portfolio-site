@@ -1,4 +1,64 @@
+import { useRef, FormEvent, useState } from "react";
+import emailjs from "@emailjs/browser";
+
+interface ContactForm {
+    name: string;
+    email: string;
+    message: string;
+}
+
 export default function Footer() {
+    const form = useRef<HTMLFormElement | null>(null);
+    const [formData, setFormData] = useState<ContactForm>({
+        name: "",
+        email: "",
+        message: ""
+    })
+    const [isSending, setIsSending] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+
+    const sendEmail = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (isInvalid) return;
+        if (!form.current) return;
+
+        setIsSending(true);
+
+        try {
+            await emailjs.sendForm(
+                import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                import.meta.env.VITE_TEMPLATE_ID,
+                form.current,
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+            );
+
+            form.current.reset();     // clears form
+            setFormData({
+                name: "",
+                email: "",
+                message: ""
+            });
+            setIsSuccess(true);       // show modal
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsSending(false);
+
+        }
+    };
+    const handleChange = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target as HTMLInputElement | HTMLTextAreaElement;;
+        setFormData((prev) => ({
+            ...prev,       // Keep the other fields
+            [name]: value  // Update only the field that changed
+        }));
+    };
+
+    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
+
+    const isInvalid = !formData.name.trim() || !isEmailValid || !formData.message.trim();
+
+
     return (
         <footer id="contact" className="py-24 px-6 border-t border-slate-200 dark:border-white/5 glass transition-colors relative z-10">
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
@@ -34,27 +94,34 @@ export default function Footer() {
                 <div className="w-full md:w-auto">
                     <div className="glass p-8 rounded-3xl w-full md:min-w-[400px]">
                         <h4 className="font-bold mb-6 text-slate-900 dark:text-white">Quick Message</h4>
-                        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                        <form ref={form} className="space-y-4" onSubmit={sendEmail}>
                             <input
+                                name="name"
+                                onChange={handleChange}
                                 type="text"
                                 placeholder="Your Name"
                                 className="w-full bg-white/50 dark:bg-black/20 border-slate-300 dark:border-white/10 rounded-xl focus:border-primary focus:ring-1 focus:ring-primary transition-all text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-white/30 p-3 outline-none"
                             />
                             <input
+                                name="email"
                                 type="email"
+                                onChange={handleChange}
                                 placeholder="Email Address"
                                 className="w-full bg-white/50 dark:bg-black/20 border-slate-300 dark:border-white/10 rounded-xl focus:border-primary focus:ring-1 focus:ring-primary transition-all text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-white/30 p-3 outline-none"
                             />
                             <textarea
+                                name="message"
+                                onChange={handleChange}
                                 rows={4}
                                 placeholder="Tell me about your project"
                                 className="w-full bg-white/50 dark:bg-black/20 border-slate-300 dark:border-white/10 rounded-xl focus:border-primary focus:ring-1 focus:ring-primary transition-all text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-white/30 p-3 outline-none"
                             ></textarea>
                             <button
                                 type="submit"
-                                className="w-full py-4 bg-primary text-black font-bold rounded-xl hover:shadow-[0_0_20px_rgba(57,255,20,0.4)] transition-all"
+                                disabled={isInvalid || isSending}
+                                className={`${isInvalid || isSending ? "bg-primary/60" : "cursor-pointer bg-primary hover:shadow-[0_0_20px_rgba(57,255,20,0.4)]"} w-full py-4 text-black font-bold rounded-xl transition-all`}
                             >
-                                Send Message
+                                {isSending ? "Sending..." : "Send Message"}
                             </button>
                         </form>
                     </div>
@@ -75,6 +142,24 @@ export default function Footer() {
                     </a>
                 </div>
             </div>
+
+            {/* Form Submission Success Modal */}
+            {isSuccess && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-white dark:bg-black p-8 rounded-2xl text-center space-y-4">
+                        <h3 className="text-xl font-bold">Message Sent!</h3>
+                        <p className="text-slate-600 dark:text-slate-400">
+                            Thanks for reaching out. I will get back to you soon.
+                        </p>
+                        <button
+                            onClick={() => setIsSuccess(false)}
+                            className="px-6 py-2 bg-primary text-black rounded-xl font-semibold"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
         </footer>
     );
 }
