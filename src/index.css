@@ -1,12 +1,24 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-primary: #39FF14;
-  --color-background-light: #FFFFFF;
-  --color-background-dark: #0F0F12;
-  --color-text-light: #00000;
-  --color-text-dark: #FFFFFF;
-  --color-card-dark: rgba(255, 255, 255, 0.05);
+  --color-primary: var(--primary-color);
+  --color-primary-dark: var(--primary-color-dark);
+  --color-accent: #00D1FF;
+
+  /* Light Theme */
+  --color-bg-light: #F8FAFC;
+  --color-surface-light: #FFFFFF;
+  --color-text-primary-light: #0F172A;
+  --color-text-secondary-light: #475569;
+  --color-border-light: rgba(0, 0, 0, 0.08);
+
+  /* Dark Theme */
+  --color-bg-dark: #09090B;
+  --color-surface-dark: #121217;
+  --color-text-primary-dark: #F8FAFC;
+  --color-text-secondary-dark: #94A3B8;
+  --color-border-dark: rgba(255, 255, 255, 0.08);
 
   --font-display: "Space Grotesk", sans-serif;
   --font-sans: "Inter", sans-serif;
@@ -16,38 +28,72 @@
   --background-image-grain: url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E");
 }
 
-@layer utilities {
-  .glass {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+@layer base {
+  :root {
+    --bg-color: var(--color-bg-light);
+    --surface-color: var(--color-surface-light);
+    --text-primary: var(--color-text-primary-light);
+    --text-secondary: var(--color-text-secondary-light);
+    --border-color: var(--color-border-light);
+    --primary-color: #16a34a;
+    /* Darker green for light mode contrast */
+    --primary-color-dark: #15803d;
   }
 
-  html:not(.dark) .glass {
-    background: rgba(255, 255, 255, 0.65);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  .dark {
+    --bg-color: var(--color-bg-dark);
+    --surface-color: var(--color-surface-dark);
+    --text-primary: var(--color-text-primary-dark);
+    --text-secondary: var(--color-text-secondary-dark);
+    --border-color: var(--color-border-dark);
+    --primary-color: #39FF14;
+    /* Neon green for dark mode */
+    --primary-color-dark: #2ECC11;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Smooth transition for all themed elements */
+  *,
+  *::before,
+  *::after {
+    transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+    transition-duration: 0.6s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Disable transitions for certain items that should be snappy (like hover states) */
+  .no-transition,
+  .no-transition * {
+    transition: none !important;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--surface-color);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
   }
 
   .text-outline {
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+    -webkit-text-stroke: 1px var(--border-color);
     color: transparent;
   }
 
-  html:not(.dark) .text-outline {
-    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.1);
-  }
-
   .neo-shadow {
-    box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+    box-shadow: 0 0 30px rgba(57, 255, 20, 0.15);
   }
 }
 
 html {
   scroll-behavior: smooth;
-}
-
-body {
-  transition: background-color 0.3s ease, color 0.3s ease;
 }

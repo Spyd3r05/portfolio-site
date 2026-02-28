@@ -9,7 +9,7 @@ export default function Projects() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-white/5 shadow-lg dark:shadow-none transition-colors">
+                <div className="group relative bg-surface-light dark:bg-surface-dark rounded-3xl overflow-hidden border border-slate-200 dark:border-white/5 shadow-lg dark:shadow-none transition-all duration-500 hover:shadow-primary/10">
                     <div className="aspect-video bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-950 flex items-center justify-center overflow-hidden">
                         <img
                             src="/assets/image0.png"
@@ -19,10 +19,10 @@ export default function Projects() {
                     </div>
                     <div className="p-8">
                         <div className="flex flex-wrap gap-2 mb-4">
-                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-primary/20 text-primary-dark dark:text-primary rounded border border-primary/20">
+                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-primary/20 text-primary dark:text-primary rounded border border-primary/20">
                                 React
                             </span>
-                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-primary/20 text-primary-dark dark:text-primary rounded border border-primary/20">
+                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-primary/20 text-primary dark:text-primary rounded border border-primary/20">
                                 Tailwind
                             </span>
                         </div>
@@ -32,16 +32,14 @@ export default function Projects() {
                         <p className="text-slate-600 dark:text-slate-400 mb-6">
                             A web solution for KUELC chapter for easier member registration, subscription and events payment.
                         </p>
-                        <button className="flex items-center gap-2 text-primary-dark dark:text-primary text-slate-900 dark:text-primary font-bold hover:gap-4 transition-all hover:text-primary">
+                        <a href="https://kuelc.vercel.app/" className="inline-flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all">
                             View Project
-                            <a href="https://kuelc.vercel.app/">
-                                <span className="material-icons-round text-sm">open_in_new</span>
-                            </a>
-                        </button>
+                            <span className="material-icons-round text-sm">open_in_new</span>
+                        </a>
                     </div>
                 </div>
 
-                <div className="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-white/5 shadow-lg dark:shadow-none transition-colors">
+                <div className="group relative bg-surface-light dark:bg-surface-dark rounded-3xl overflow-hidden border border-slate-200 dark:border-white/5 shadow-lg dark:shadow-none transition-all duration-500 hover:shadow-primary/10">
                     <div className="aspect-video bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-950 flex items-center justify-center overflow-hidden">
                         <img
                             src="/assets/image1.jpg"
@@ -51,10 +49,10 @@ export default function Projects() {
                     </div>
                     <div className="p-8">
                         <div className="flex flex-wrap gap-2 mb-4">
-                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-primary/20 text-primary-dark dark:text-primary rounded border border-primary/20">
+                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-primary/20 text-primary dark:text-primary rounded border border-primary/20">
                                 React Js
                             </span>
-                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-primary/20 text-primary-dark dark:text-primary rounded border border-primary/20">
+                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-primary/20 text-primary dark:text-primary rounded border border-primary/20">
                                 Go
                             </span>
                         </div>
@@ -62,12 +60,9 @@ export default function Projects() {
                         <p className="text-slate-600 dark:text-slate-400 mb-6">
                             A real-time chat application using React and Go.
                         </p>
-                        <a href="https://github.com/Spyd3r05/live-chatter-frontEnd">
-                            <button className="flex items-center gap-2 text-primary-dark dark:text-primary text-slate-900 dark:text-primary font-bold hover:gap-4 transition-all hover:text-primary">
-                                View Project <span className="material-icons-round text-sm">open_in_new</span>
-                            </button>
+                        <a href="https://github.com/Spyd3r05/live-chatter-frontEnd" className="inline-flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all">
+                            View Project <span className="material-icons-round text-sm">open_in_new</span>
                         </a>
-
                     </div>
                 </div>
             </div>

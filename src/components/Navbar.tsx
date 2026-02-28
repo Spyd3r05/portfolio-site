@@ -1,17 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useTheme } from "../ThemeContext";
 
 export default function Navbar() {
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== "undefined") {
-      return (
-        localStorage.getItem("theme") === "dark" ||
-        (!("theme" in localStorage) &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
-      );
-    }
-    return true; // Default to dark mode
-  });
-
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === "dark";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const menuItems = [
@@ -20,19 +12,6 @@ export default function Navbar() {
     { name: "Projects", href: "#projects" },
     { name: "Journey", href: "#journey" },
   ];
-
-  useEffect(() => {
-    const html = document.documentElement;
-    if (isDark) {
-      html.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      html.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDark]);
-
-  const toggleTheme = () => setIsDark(!isDark);
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
@@ -52,13 +31,14 @@ export default function Navbar() {
         <button
           onClick={toggleTheme}
           aria-label="Toggle Dark Mode"
-          className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors focus:outline-none"
+          className="relative p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 focus:outline-none group overflow-hidden"
         >
-          {isDark ? (
-            <span className="material-icons-round text-xl block">light_mode</span>
-          ) : (
-            <span className="material-icons-round text-xl block">dark_mode</span>
-          )}
+          <div className={`transition-all duration-500 scale-100 ${isDark ? 'rotate-[360deg] opacity-0 translate-y-8' : 'rotate-0 opacity-100 translate-y-0'}`}>
+            <span className="material-icons-round text-2xl block text-amber-500">light_mode</span>
+          </div>
+          <div className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${isDark ? 'rotate-0 opacity-100 translate-y-0' : 'rotate-[-90deg] opacity-0 -translate-y-8'}`}>
+            <span className="material-icons-round text-2xl block text-blue-400">dark_mode</span>
+          </div>
         </button>
 
         <a
@@ -74,13 +54,14 @@ export default function Navbar() {
         <button
           onClick={toggleTheme}
           aria-label="Toggle Dark Mode"
-          className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+          className="relative p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 focus:outline-none overflow-hidden"
         >
-          {isDark ? (
-            <span className="material-icons-round text-xl block">light_mode</span>
-          ) : (
-            <span className="material-icons-round text-xl block">dark_mode</span>
-          )}
+          <div className={`transition-all duration-500 ${isDark ? 'rotate-[360deg] opacity-0 translate-y-8' : 'rotate-0 opacity-100 translate-y-0'}`}>
+            <span className="material-icons-round text-xl block text-amber-500">light_mode</span>
+          </div>
+          <div className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${isDark ? 'rotate-0 opacity-100 translate-y-0' : 'rotate-[-90deg] opacity-0 -translate-y-8'}`}>
+            <span className="material-icons-round text-xl block text-blue-400">dark_mode</span>
+          </div>
         </button>
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

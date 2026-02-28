@@ -100,26 +100,26 @@ export default function Footer() {
                                 onChange={handleChange}
                                 type="text"
                                 placeholder="Your Name"
-                                className="w-full bg-white/50 dark:bg-black/20 border-slate-300 dark:border-white/10 rounded-xl focus:border-primary focus:ring-1 focus:ring-primary transition-all text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-white/30 p-3 outline-none"
+                                className="w-full bg-white/50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:border-primary focus:ring-1 focus:ring-primary transition-all text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-white/30 p-3 outline-none"
                             />
                             <input
                                 name="email"
                                 type="email"
                                 onChange={handleChange}
                                 placeholder="Email Address"
-                                className="w-full bg-white/50 dark:bg-black/20 border-slate-300 dark:border-white/10 rounded-xl focus:border-primary focus:ring-1 focus:ring-primary transition-all text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-white/30 p-3 outline-none"
+                                className="w-full bg-white/50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:border-primary focus:ring-1 focus:ring-primary transition-all text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-white/30 p-3 outline-none"
                             />
                             <textarea
                                 name="message"
                                 onChange={handleChange}
                                 rows={4}
                                 placeholder="Tell me about your project"
-                                className="w-full bg-white/50 dark:bg-black/20 border-slate-300 dark:border-white/10 rounded-xl focus:border-primary focus:ring-1 focus:ring-primary transition-all text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-white/30 p-3 outline-none"
+                                className="w-full bg-white/50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:border-primary focus:ring-1 focus:ring-primary transition-all text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-white/30 p-3 outline-none"
                             ></textarea>
                             <button
                                 type="submit"
                                 disabled={isInvalid || isSending}
-                                className={`${isInvalid || isSending ? "bg-primary/60" : "cursor-pointer bg-primary hover:shadow-[0_0_20px_rgba(57,255,20,0.4)]"} w-full py-4 text-black font-bold rounded-xl transition-all`}
+                                className={`${isInvalid || isSending ? "bg-primary/40 text-black/40" : "cursor-pointer bg-primary text-black hover:shadow-[0_0_20px_rgba(57,255,20,0.4)] hover:scale-[1.02]"} w-full py-4 font-bold rounded-xl transition-all duration-300`}
                             >
                                 {isSending ? "Sending..." : "Send Message"}
                             </button>
@@ -145,15 +145,20 @@ export default function Footer() {
 
             {/* Form Submission Success Modal */}
             {isSuccess && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                    <div className="bg-white dark:bg-black p-8 rounded-2xl text-center space-y-4">
-                        <h3 className="text-xl font-bold">Message Sent!</h3>
-                        <p className="text-slate-600 dark:text-slate-400">
-                            Thanks for reaching out. I will get back to you soon.
-                        </p>
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100] animate-in fade-in duration-300">
+                    <div className="bg-surface-light dark:bg-surface-dark border border-white/10 p-10 rounded-3xl text-center space-y-6 max-w-sm mx-4 shadow-2xl">
+                        <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
+                            <span className="material-icons-round text-primary text-3xl">check</span>
+                        </div>
+                        <div className="space-y-2">
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Message Sent!</h3>
+                            <p className="text-slate-600 dark:text-slate-400">
+                                Thanks for reaching out. I'll get back to you as soon as possible.
+                            </p>
+                        </div>
                         <button
                             onClick={() => setIsSuccess(false)}
-                            className="px-6 py-2 bg-primary text-black rounded-xl font-semibold"
+                            className="w-full py-3 bg-primary text-black rounded-xl font-bold hover:shadow-[0_0_15px_rgba(57,255,20,0.3)] transition-all"
                         >
                             Close
                         </button>

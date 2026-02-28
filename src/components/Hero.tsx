@@ -2,7 +2,7 @@ export default function Hero() {
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 px-6">
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-                <h1 className="text-[15vw] font-display font-bold leading-none uppercase opacity-5 dark:opacity-[0.03] whitespace-nowrap text-slate-900 dark:text-white">
+                <h1 className="text-[15vw] font-display font-bold leading-none uppercase opacity-[0.03] whitespace-nowrap text-primary">
                     NZIVUMUENI
                 </h1>
             </div>
@@ -39,7 +39,7 @@ export default function Hero() {
                 </div>
 
                 <div className="lg:col-span-5 relative">
-                    <div className="glass p-8 rounded-3xl relative z-10 overflow-hidden">
+                    <div className="glass p-8 rounded-3xl relative z-10 overflow-hidden border border-white/10">
                         <div className="absolute top-0 right-0 p-4">
                             <span className="material-icons-round text-primary text-4xl rotate-45">
                                 auto_awesome
