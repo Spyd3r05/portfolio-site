@@ -64,13 +64,13 @@ export default function Footer() {
             <div className="max-w-6xl mx-auto mt-24 pt-8 border-t border-slate-200 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
                 <p>© 2026 NZIVUMUENI. All rights reserved.</p>
                 <div className="flex gap-6">
-                    <a href="#" className="hover:text-primary transition-colors">
+                    <a href="https://github.com/Spyd3r05" className="hover:text-primary transition-colors">
                         GitHub
                     </a>
-                    <a href="#" className="hover:text-primary transition-colors">
+                    <a href="https://www.linkedin.com/in/nzivuagnes/" className="hover:text-primary transition-colors">
                         LinkedIn
                     </a>
-                    <a href="#" className="hover:text-primary transition-colors">
+                    <a href="https://x.com/nzivumueni" className="hover:text-primary transition-colors">
                         Twitter
                     </a>
                 </div>
